@@ -15,6 +15,10 @@ loadEventListeners();
 function loadEventListeners() {
   // Add task event
   form.addEventListener('submit', addTask);
+  // Remove task event
+  taskList.addEventListener('click', removeTask); // when someone clicks the task, we get the event b/c pagination 
+  // Clear task event
+  clearBtn.addEventListener('click', clearTasks);
 }
 
 // Add task 
@@ -43,3 +47,27 @@ function addTask(e) {
   taskList.appendChild(li);
   e.preventDefault(); // Prevents page from redirecting on submit
 }
+
+// Remove task
+function removeTask(e) {
+  /* when we click the x, we are getting the i tag as the target - but we want to ensure the a tag has a class of delete-item*/
+  if(e.target.parentElement.classList.contains('delete-item')) {
+    // When we click on the icon, we want the entire li to remove ie. the parent of the parent
+    if(confirm(`Are you sure?`)){
+      e.target.parentElement.parentElement.remove();
+    }
+  }
+}
+
+// Clear all tasks
+function clearTasks() {
+  // Method 1 - slower
+  // taskList.innerHTML = ``;
+
+  // Method 2 - faster
+  
+  while(taskList.firstChild) {
+    // while there is still a firstChild ie. something in the list
+    taskList.removeChild(taskList.firstChild);
+  }
+} 
