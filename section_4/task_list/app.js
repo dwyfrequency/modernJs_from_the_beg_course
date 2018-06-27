@@ -6,7 +6,7 @@ const taskList = document.querySelector('.collection'); // ul of tasks
 const clearBtn = document.querySelector('.clear-tasks'); // btn to clear tasks 
 const filter = document.querySelector('#filter'); // input for filter
 const taskInput = document.querySelector('#task'); // input for tasks 
-console.log(form, taskList, clearBtn, filter, taskInput)
+// console.log(form, taskList, clearBtn, filter, taskInput)
 
 // Load all event listeners
 loadEventListeners();
@@ -19,6 +19,8 @@ function loadEventListeners() {
   taskList.addEventListener('click', removeTask); // when someone clicks the task, we get the event b/c pagination 
   // Clear task event
   clearBtn.addEventListener('click', clearTasks);
+  // Filter tasks event
+  filter.addEventListener('keyup', filterTasks);
 }
 
 // Add task 
@@ -42,19 +44,21 @@ function addTask(e) {
   link.innerHTML = '<i class="fa fa-remove"></i>';
   // Append the link to li
   li.appendChild(link);
-  
   // Append li to ul 
   taskList.appendChild(li);
+  
+  // clears input value after submission
+  taskInput.value = '';
   e.preventDefault(); // Prevents page from redirecting on submit
 }
 
 // Remove task
 function removeTask(e) {
-  /* when we click the x, we are getting the i tag as the target - but we want to ensure the a tag has a class of delete-item*/
+  /* when we click the x, we are getting the i tag as the target - but we want to ensure the <a> tag has a class of delete-item*/
   if(e.target.parentElement.classList.contains('delete-item')) {
     // When we click on the icon, we want the entire li to remove ie. the parent of the parent
     if(confirm(`Are you sure?`)){
-      e.target.parentElement.parentElement.remove();
+      e.target.parentElement.parentElement.remove(); //
     }
   }
 }
@@ -71,3 +75,23 @@ function clearTasks() {
     taskList.removeChild(taskList.firstChild);
   }
 } 
+
+// Filter Tasks 
+function filterTasks(e) {
+  const text = e.target.value.toLowerCase();
+  
+  // We can use a forEach b/c query selector all returns a nodeList
+  document
+    .querySelectorAll('.collection-item')
+    .forEach(task => {
+      const item = task.firstChild.textContent;
+
+      // if the text filter matches an item in the list - show the item 
+      if(item.toLowerCase().includes(text)) {
+        task.style.display = 'block';
+      } else {
+        // without a match - hide the item in the list
+        task.style.display = 'none';
+      }
+    });
+}
