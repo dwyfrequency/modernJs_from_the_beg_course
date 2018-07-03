@@ -53,6 +53,17 @@ UI.prototype.showAlert = function(message, className) {
   }, 3000);
 }
 
+// Delete book
+UI.prototype.deleteBook = function(target) {
+  if(target.className === 'delete') {
+    /* we get the target of the a tag and ultimately want the a tag
+    a : td : tr => so we take the parentElement twice and remove  
+    */
+    target.parentElement.parentElement.remove();
+  }
+}
+
+// Clears all input fields in form
 UI.prototype.clearFields = function() {
   document.querySelector('#title').value = '';
   document.querySelector('#author').value = '';
@@ -91,4 +102,16 @@ bookFormUI.addEventListener('submit', function(e) {
 
   e.preventDefault();
 });
+
+// Event listener for removing books
+document.querySelector('#book-list').addEventListener('click', function(e) {
+  // Instantiate UI - to access non static prototype method we need to instantiate a new UI object
+  const ui = new UI();
+  ui.deleteBook(e.target);
+  ui.showAlert(`Book successfully deleted`, 'success');
+  e.preventDefault();
+})
+
 // log({ bookFormUI});
+
+/* If we have something that is going to show up more than once with the same class, or something that is not there when the page loads and is dynamically added - we'll have to use event delegation */
