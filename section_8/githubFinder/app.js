@@ -20,15 +20,15 @@ searchUser.addEventListener('keyup', e => {
         log(data);
         if(data.profile.message === 'Not Found') {
           // Show alert
-          log(`Info not found anywhere. Sad!`)
+          ui.showAlert(`User not found`, `alert alert-danger`);
         } else {
           // Show profile
           ui.showProfile(data.profile);
         }
       });
   } else {
-    // Clear profile
-    
+    // Clear profile - when input is cleared
+    ui.clearProfile();
   } 
 })
 // log(searchUser);
