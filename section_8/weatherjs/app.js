@@ -1,7 +1,15 @@
 // Main js file
 
+// Init Storage object
+const storage = new Storage();
+
+// Get stored location data 
+const weatherLocation = storage.getLocationData();
+
 // Init Weather object
-const weather = new Weather('Glenside', 'US');
+const weather = new Weather(weatherLocation.city, weatherLocation.countryCode);
+
+// Init UI 
 const ui = new UI();
 
 // Get weather on DOM load
@@ -22,7 +30,7 @@ document.querySelector('#w-change-btn').addEventListener('click', e => {
 
   // Close modal when changes are saved - need to use jquery for this
   $(`#locModal`).modal(`hide`);
-})
+});
 
 function getWeather() {
   weather
