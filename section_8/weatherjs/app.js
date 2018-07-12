@@ -7,6 +7,23 @@ const ui = new UI();
 // Get weather on DOM load
 document.addEventListener('DOMContentLoaded', getWeather)
 
+// Change location event
+document.querySelector('#w-change-btn').addEventListener('click', e => {
+  log(e);
+  const city = document.querySelector('#city').value;
+  const country = document.querySelector('#country').value;
+  log(city, country);
+
+  // Update location with modal vals 
+  weather.changeLocation(city, country);
+
+  // Get and display weather
+  getWeather();
+
+  // Close modal when changes are saved - need to use jquery for this
+  $(`#locModal`).modal(`hide`);
+})
+
 function getWeather() {
   weather
     .getWeather()

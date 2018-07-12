@@ -20,7 +20,7 @@ class UI {
 
     this.location.textContent = weather.name;
     this.desc.textContent = weather.weather[0].description.toUpperCase();
-    this.string.textContent = weather.main.temp;
+    this.string.textContent = `${weather.main.temp} F`;
     this.icon.setAttribute('src', `http://openweathermap.org/img/w/${weather.weather[0].icon}.png`)
     this.humidity.textContent = `Relative Humidity: ${weather.main.humidity}%`;
     this.tempHigh.textContent = `High of ${weather.main.temp_max}`;
