@@ -3,7 +3,7 @@
 // Init Storage object
 const storage = new Storage();
 
-// Get stored location data 
+// Get local storage data 
 const weatherLocation = storage.getLocationData();
 
 // Init Weather object
@@ -15,12 +15,13 @@ const ui = new UI();
 // Get weather on DOM load
 document.addEventListener('DOMContentLoaded', getWeather)
 
-// Change location event
+// Change location event with modal
 document.querySelector('#w-change-btn').addEventListener('click', e => {
-  log(e);
   const city = document.querySelector('#city').value;
   const country = document.querySelector('#country').value;
-  log(city, country);
+
+  // Set storage with values
+  storage.setLocationData(city, country);
 
   // Update location with modal vals 
   weather.changeLocation(city, country);
