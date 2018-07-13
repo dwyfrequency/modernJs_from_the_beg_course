@@ -16,10 +16,9 @@ re = /gre?a?y/i; // optional character of 'e' or 'a'
 re = /w?a?orld/i; // optional character of 'o' or 'a' : world will work as well as wrld b/c both optional
 re = /\?/ // Escape characters - for special characters
 
-// Brackets [] - Character Sets
 
 // String to match 
-const str = 'Gray';
+const str = 'Hello World';
 
 const result = re.exec(str);
 log(result);
