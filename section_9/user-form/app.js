@@ -11,13 +11,12 @@ zipcode.addEventListener("blur", validateZipCode);
 email.addEventListener("blur", validateEmail);
 phone.addEventListener("blur", validatePhone);
 
-
 function validateValue(selector, re) {
-  // log({selector, re});
-  if (!re.test(selector.value)) {
-    selector.classList.add("is-invalid");
-  } else {
+  log({selector, re});
+  if (re.test(selector.value)) {
     selector.classList.remove("is-invalid");
+  } else {
+    selector.classList.add("is-invalid");
   }
 }
 
