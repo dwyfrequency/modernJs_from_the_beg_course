@@ -51,13 +51,13 @@ re = /^([0-9]x){3}$/; // Group to matches 3 digits with 3 digits = 3x3x3x
 
 // Shorthand Character Classes
 re = /\w/; // \w = Word Character like alphanumeric or _
-re = /\w+/; // + = one or more
+re = /\w+/; // + = match one or more characters
 re = /\W/; // \w = Non-Word Character anything but alphanumeric or _ like !
 re = /\d/; // Match any digit
 re = /\d+/; // Match any digit one or more times
 re = /\D/; // Match any Non-Digit character
 re = /\s/; // Match whitespace character like space or tab
-re = /\S/; // Match Non-whitespace character diferent than space or tab
+re = /\S/; // Match Non-whitespace character different than space or tab
 re = /Hell\b/i; // Word boundary, not word that has the word (Hello, welcome to Hell)
 
 // Assertions
