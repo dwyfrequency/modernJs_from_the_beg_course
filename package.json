@@ -1,0 +1,22 @@
+{
+  "name": "modernjs",
+  "version": "1.0.0",
+  "description": "modernjs course",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dwyfrequency/modernJs_from_the_beg_course.git"
+  },
+  "author": "jack dwyer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dwyfrequency/modernJs_from_the_beg_course/issues"
+  },
+  "homepage": "https://github.com/dwyfrequency/modernJs_from_the_beg_course#readme",
+  "dependencies": {
+    "eslint": "^5.1.0"
+  }
+}
