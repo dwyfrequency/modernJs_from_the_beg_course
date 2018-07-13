@@ -28,17 +28,18 @@ function validateName() {
 }
 // validate zip input
 function validateZipCode() {
-  const re = /^\d{5}(\-\d{4})?$/; // name with 2 to 10 letters
+  const re = /^\d{5}(\-\d{4})?$/; // standard zip with the option of a trailing dash and four digits
   validateValue(zipcode, re);
 }
+
 // validate email input
 function validateEmail() {
-  const re = /^[A-Za-z0-9_\-\.]+@([A-Za-z0-9])+\.[a-z]{2,5}/;
+  const re = /^[A-Za-z0-9_\-\.]+@([A-Za-z0-9])+\.[a-z]{2,5}/; 
   validateValue(email, re);
 }
 // validate phone input
 function validatePhone() {
-  const re = /^\(?\d{3}\)?[\s\.\-]?\d{3}[\s\.\-]?\d{4}$/;
+  const re = /^\(?\d{3}\)?[\s\.\-]?\d{3}[\s\.\-]?\d{4}$/; // optional () at the beginning and optional delimiters
   validateValue(phone, re);
 }
 
