@@ -47,7 +47,7 @@ log(nameGen.next().value);
 log(nameGen.next().value);
 log(nameGen.next()); // { done: true }
 
-// id creator - generator 
+// id creator - generator
 function *createIds () {
 
   let index = 1;
