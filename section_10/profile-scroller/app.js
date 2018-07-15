@@ -60,7 +60,7 @@ function nextProfile () {
         <li class="list-group-item">Preference: ${currentProfile.gender} looking for ${currentProfile.lookingFor}</li>
       </ul
     `;
-    document.querySelector('#imageDisplay').innerHTML = `<img src="${currentProfile.image}">`;
+    document.querySelector("#imageDisplay").innerHTML = `<img src="${currentProfile.image}">`;
 
   } else {
 
