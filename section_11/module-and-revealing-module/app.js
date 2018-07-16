@@ -4,12 +4,12 @@ const log = console.log;
 
 // : Basic structure
 
-(function() {
-  // : Declar private variables and funcs 
-  return {
-    // Declare public variables and functions
-  } 
-})(); // immediately executes the function
+// (function() {
+//   // : Declar private variables and funcs 
+//   return {
+//     // Declare public variables and functions
+//   } 
+// })(); // immediately executes the function
 
 // must wrap the immediately executes function in paranthesis 
 
@@ -23,16 +23,16 @@ const log = console.log;
 // : Standard Module Pattern
 
 const UICtrl = (function() {
-  let text = "Hello world!";
+  let _text = "Hello world!";
   const changeText = () => {
     const element = document.querySelector('h1');
-    element.textContent = text;
+    element.textContent = _text;
   }
 
   return {
     callChangeText() {
       changeText()
-      log(text);
+      log(_text);
     }
   }
 }());
@@ -49,12 +49,12 @@ UICtrl.callChangeText();
 // log(UICtrl.changeText()); // Error - ie. b/c private func 
 // all of this works b/c of closures
 
-// : Revealing the module pattern
+// : Revealing the module pattern - directly reveals the methods inside the closure
 const ItemCtrl = (function() {
 
-  let data = [];
-  function add(item) {data.push(item)};
-  function get(id) {return data.find(obj => obj.id === id)}
+  let _data = [];
+  function add(item) {_data.push(item)};
+  function get(id) {return _data.find(obj => obj.id === id)}
 
   return {
     add, // uses destructuring for unpacking the methods
