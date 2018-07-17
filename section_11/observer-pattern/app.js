@@ -37,15 +37,20 @@ log(click);
 // elements
 const sub_ms = document.querySelector(".sub-ms");
 const unsub_ms = document.querySelector(".unsub-ms");
-const sub_s = document.querySelector(".sub-ms");
-const unsub_s = document.querySelector(".unsub-ms");
+const sub_s = document.querySelector(".sub-s");
+const unsub_s = document.querySelector(".unsub-s");
 const fire = document.querySelector(".fire");
 
 const getCurrentMilliseconds = () => {
   log(`Current Milliseconds ${new Date().getMilliseconds()}`);
 }
+const getCurrentSeconds = () => {
+  log(`Current Seconds ${new Date().getSeconds()}`);
+}
 
 // event listener
 sub_ms.addEventListener("click", () => click.subscribe(getCurrentMilliseconds));
 unsub_ms.addEventListener("click", () => click.unsubscribe(getCurrentMilliseconds));
+sub_s.addEventListener("click", () => click.subscribe(getCurrentSeconds));
+unsub_s.addEventListener("click", () => click.unsubscribe(getCurrentSeconds));
 fire.addEventListener("click", () => click.fire());
