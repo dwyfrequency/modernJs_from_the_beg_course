@@ -30,6 +30,7 @@ User.prototype = {
     log(`${from.name} to ${this.name}: ${message}`);
 
   }
+
 }
 
 const Chatroom = function (params) {
@@ -58,6 +59,7 @@ const Chatroom = function (params) {
 
           if (users[key] !== from) {
 
+            // send to everyone but yourself
             users[key].receive(message, from);
 
           }
@@ -68,9 +70,9 @@ const Chatroom = function (params) {
 
     }
 
-  }
+  };
 
-}
+};
 
 const brad = new User("Brad");
 const sarah = new User("Sarah");
