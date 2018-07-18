@@ -65,32 +65,27 @@ const PageState = function () {
     this.currentState = state;
   }
 
-  this.currentState = this.init();
+  this.init(); // initializes the PageState to the homepage
 
 };
 
-
-
-// Instantiate pageState
+// : Instantiate pageState
 const page = new PageState();
 
-// Init the first state
-page.init();
-
-// UI Vars
+// : UI Vars
 const home = document.getElementById('home'),
   about = document.getElementById('about'),
   contact = document.getElementById('contact');
 
-// Home
-home.addEventListener('click', (e) => {
+// : Home
+home.addEventListener('click', e => {
   page.change(new HomeState());
 
   e.preventDefault();
 });
 
-// About
-about.addEventListener('click', (e) => {
+// : About
+about.addEventListener('click', e => {
   page.change(new AboutState());
 
   e.preventDefault();
