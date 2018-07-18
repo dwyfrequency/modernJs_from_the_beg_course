@@ -23,7 +23,7 @@ const HomeState = function (page) {
 };
 
 // About State
-const AboutState = function (page) {
+const AboutState = function () {
 
   document.querySelector("#heading").textContent = "About Us";
   document.querySelector("#content").innerHTML = `
@@ -33,10 +33,10 @@ const AboutState = function (page) {
 };
 
 // Contact State
-const ContactState = function (page) {
+const ContactState = function () {
 
-  document.getElementById('heading').textContent = 'Contact Us';
-  document.getElementById('content').innerHTML = `
+  document.getElementById("heading").textContent = "Contact Us";
+  document.getElementById("content").innerHTML = `
     <form action="">
       <div class="form-group">
         <label>Name</label>
@@ -73,26 +73,26 @@ const PageState = function () {
 const page = new PageState();
 
 // : UI Vars
-const home = document.getElementById('home'),
-  about = document.getElementById('about'),
-  contact = document.getElementById('contact');
+const home = document.getElementById("home"),
+  about = document.getElementById("about"),
+  contact = document.getElementById("contact");
 
 // : Home
-home.addEventListener('click', e => {
+home.addEventListener("click", e => {
   page.change(new HomeState());
 
   e.preventDefault();
 });
 
 // : About
-about.addEventListener('click', e => {
+about.addEventListener("click", e => {
   page.change(new AboutState());
 
   e.preventDefault();
 });
 
 // Contact
-contact.addEventListener('click', (e) => {
+contact.addEventListener("click", (e) => {
   page.change(new ContactState());
 
   e.preventDefault();
