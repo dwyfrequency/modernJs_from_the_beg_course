@@ -4,7 +4,7 @@ const log = console.log;
 
 
 // : Item Controller
-const ItemCtrl = (function name(params) {
+const ItemCtrl = (function () {
 
   // : Item Constructor
   const Item = (id, name, calories) => {
@@ -15,6 +15,7 @@ const ItemCtrl = (function name(params) {
 
   // : Data Structure / State
   const data = {
+
     items: [
       {id: 0, name: "Salmon Dinner", calories: 850},
       {id: 1, name: "Cookie", calories: 400},
@@ -22,6 +23,22 @@ const ItemCtrl = (function name(params) {
     ],
     currentItem: null,
     totalCalories: 0
+
+  }
+
+  // : Public methods
+  return {
+
+    getItems () {
+
+      return data.items;
+
+    },
+    logData () {
+
+      return data;
+
+    }
   }
 
 }());
@@ -34,13 +51,47 @@ const ItemCtrl = (function name(params) {
 // : UI Controller
 const UICtrl = (function () {
 
+  // : Public methods
+  return {
+    populateItemList (items) {
+      // create html from list of items
+      const html = items.reduce((accum, item) => {
+
+        return `${accum}
+        <li class="collection-item" id="item-${item.id}">
+          <strong>${item.name}: </strong> <em>${item.calories} Calories</em>
+          <a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i></a>
+        </li>`;
+
+      }, "");
+      document
+        .querySelector("#item-list")
+        .innerHTML = html;
+    }
+  }
+
 }());
 
 // : APP Controller
 const AppCtrl = ((ItemCtrl, UICtrl) => {
+  // log(ItemCtrl.logData());
+
+  // : Public Methods
+  return {
+
+    init () {
+      log('Initializing App...');
+      // get Items from data structure 
+      const items = ItemCtrl.getItems();
+
+      // Populate list with items
+      UICtrl.populateItemList(items);
+    }
+
+  }
 
 })(ItemCtrl, UICtrl);
 
-
+AppCtrl.init();
 
 // when using iife with es6 place the paranths() outside of the wrapping parens like above
