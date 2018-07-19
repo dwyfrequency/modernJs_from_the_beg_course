@@ -51,8 +51,16 @@ const ItemCtrl = (function () {
 // : UI Controller
 const UICtrl = (function () {
 
+  const UISelectors = {
+    itemList: "#item-list",
+    addBtn: ".add-btn"
+  }; // closure stores querySelector values
+
   // : Public methods
   return {
+    getSelectors () {
+      return UISelectors;
+    },
     populateItemList (items) {
       // create html from list of items
       const html = items.reduce((accum, item) => {
@@ -65,7 +73,7 @@ const UICtrl = (function () {
 
       }, "");
       document
-        .querySelector("#item-list")
+        .querySelector(UISelectors.itemList) // grab from closure
         .innerHTML = html;
     }
   }
@@ -74,7 +82,25 @@ const UICtrl = (function () {
 
 // : APP Controller
 const AppCtrl = ((ItemCtrl, UICtrl) => {
-  // log(ItemCtrl.logData());
+  // load event listeners
+  const loadEventListeners = () => {
+    // get ui selectors
+    const UISelectors = UICtrl.getSelectors();
+
+    // add item event
+    document
+      .querySelector(UISelectors.addBtn)
+      .addEventListener("click", itemAddSubmit);
+  };
+
+  // add item Submit
+  const itemAddSubmit() = e => {
+    // Get form input from UI Controller
+    const input = UICtrl.getItemInput();
+
+    log("Add");
+    e.preventDefault();
+  };
 
   // : Public Methods
   return {
