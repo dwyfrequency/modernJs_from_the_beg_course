@@ -94,7 +94,7 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
   };
 
   // add item Submit
-  const itemAddSubmit() = e => {
+  const itemAddSubmit = e => {
     // Get form input from UI Controller
     const input = UICtrl.getItemInput();
 
