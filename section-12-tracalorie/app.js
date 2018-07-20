@@ -53,7 +53,9 @@ const UICtrl = (function () {
 
   const UISelectors = {
     itemList: "#item-list",
-    addBtn: ".add-btn"
+    addBtn: ".add-btn",
+    updateBtn: ".update-btn",
+    backBtn: ".back-btn"
   }; // closure stores querySelector values
 
   // : Public methods
@@ -72,6 +74,7 @@ const UICtrl = (function () {
         </li>`;
 
       }, "");
+
       document
         .querySelector(UISelectors.itemList) // grab from closure
         .innerHTML = html;
@@ -82,24 +85,25 @@ const UICtrl = (function () {
 
 // : APP Controller
 const AppCtrl = ((ItemCtrl, UICtrl) => {
-  // load event listeners
+
+  // load event listeners - all initial events will go in here
   const loadEventListeners = () => {
-    // get ui selectors
-    const UISelectors = UICtrl.getSelectors();
+  // get ui selectors
+  const UISelectors = UICtrl.getSelectors();
+
+    // add item Submit
+    const itemAddSubmit = e => {
+      // Get form input from UI Controller
+
+      log("Add");
+      e.preventDefault();
+    };
 
     // add item event
     document
       .querySelector(UISelectors.addBtn)
       .addEventListener("click", itemAddSubmit);
-  };
 
-  // add item Submit
-  const itemAddSubmit = e => {
-    // Get form input from UI Controller
-    const input = UICtrl.getItemInput();
-
-    log("Add");
-    e.preventDefault();
   };
 
   // : Public Methods
@@ -112,6 +116,9 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
 
       // Populate list with items
       UICtrl.populateItemList(items);
+
+      // : Load event listeners 
+      loadEventListeners();
     }
 
   }
