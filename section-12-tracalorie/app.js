@@ -17,9 +17,9 @@ const ItemCtrl = (function () {
   const data = {
 
     items: [
-      {id: 0, name: "Salmon Dinner", calories: 850},
-      {id: 1, name: "Cookie", calories: 400},
-      {id: 1, name: "Eggs", calories: 300}
+      {id: 1, name: "Salmon Dinner", calories: 850},
+      {id: 2, name: "Cookie", calories: 400},
+      {id: 3, name: "Eggs", calories: 300}
     ],
     currentItem: null,
     totalCalories: 0
@@ -35,7 +35,7 @@ const ItemCtrl = (function () {
       let ID;
       // create id
       if (data.items.length) {
-        ID = data.items[data.items.length - 1].id++;
+        ID = data.items[data.items.length - 1].id + 1;
       } else {
         ID = 1;
       }
