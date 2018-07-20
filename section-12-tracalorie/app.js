@@ -7,11 +7,11 @@ const log = console.log;
 const ItemCtrl = (function () {
 
   // : Item Constructor
-  const Item = (id, name, calories) => {
+  const Item = function (id, name, calories) {
     this.id = id;
     this.name = name;
     this.calories = calories;
-  } 
+  };
 
   // : Data Structure / State
   const data = {
@@ -29,6 +29,24 @@ const ItemCtrl = (function () {
   // : Public methods
   return {
 
+    addItem ({name, calories}) {
+
+      log(name, calories);
+      let ID;
+      // create id
+      if (data.items.length) {
+        ID = data.items[data.items.length - 1].id++;
+      } else {
+        ID = 1;
+      }
+
+      // create new item - must convert calories to int val
+      const newItem = new Item(ID, name, parseInt(calories));
+
+      // add to items array
+      data.items.push(newItem);
+      this.logData();
+    },
     getItems () {
 
       return data.items;
@@ -53,6 +71,8 @@ const UICtrl = (function () {
 
   const UISelectors = {
     itemList: "#item-list",
+    itemNameInput: "#item-name",
+    itemCaloriesInput: "#item-calories",
     addBtn: ".add-btn",
     updateBtn: ".update-btn",
     backBtn: ".back-btn"
@@ -60,6 +80,12 @@ const UICtrl = (function () {
 
   // : Public methods
   return {
+    getItemInput () {
+      return {
+        name: document.querySelector(UISelectors.itemNameInput).value,
+        calories: document.querySelector(UISelectors.itemCaloriesInput).value,
+      };
+    },
     getSelectors () {
       return UISelectors;
     },
@@ -94,8 +120,15 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
     // add item Submit
     const itemAddSubmit = e => {
       // Get form input from UI Controller
+      const input = UICtrl.getItemInput();
 
-      log("Add");
+      /* check for name and calories input - if either are blank it will be falsy 
+      - note calories is expecting number input will be blank with string 
+      - note this number check is only enforced by the html, our js still gets string val for calories*/
+      if (input.name && input.calories) {
+        // add item
+        const newItem = ItemCtrl.addItem(input);
+      }
       e.preventDefault();
     };
 
