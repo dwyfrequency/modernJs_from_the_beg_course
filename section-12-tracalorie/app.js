@@ -46,6 +46,7 @@ const ItemCtrl = (function () {
       // add to items array
       data.items.push(newItem);
       this.logData();
+      return newItem;
     },
     getItems () {
 
