@@ -80,6 +80,24 @@ const UICtrl = (function () {
 
   // : Public methods
   return {
+    addListItem (item) {
+      log(`${this.name} - ${item}`)
+      // create li element
+      const li = document.createElement("li");
+      
+      // add attributes
+      li.className = "collection-item";
+      li.id = `item-${item.id}`;
+      
+      // add html
+      li.innerHTML = `
+        <strong>${item.name}: </strong> <em>${item.calories} Calories</em>
+        <a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i></a>
+      `;
+
+      // insert item
+      document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li);
+    }, 
     getItemInput () {
       return {
         name: document.querySelector(UISelectors.itemNameInput).value,
@@ -126,8 +144,10 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
       - note calories is expecting number input will be blank with string 
       - note this number check is only enforced by the html, our js still gets string val for calories*/
       if (input.name && input.calories) {
-        // add item
+        // add item to the array of items
         const newItem = ItemCtrl.addItem(input);
+        // add new list item to the UI
+        UICtrl.addListItem(newItem);
       }
       e.preventDefault();
     };
