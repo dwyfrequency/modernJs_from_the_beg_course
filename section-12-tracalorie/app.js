@@ -38,6 +38,9 @@ const ItemCtrl = (function () {
       data.items.push(newItem);
 
       return newItem;
+    }, 
+    clearAllItems () {
+      data.items = [];
     },
     deleteItem (id) {
       data.items = data.items.filter(obj => obj.id !== id);
@@ -84,6 +87,7 @@ const UICtrl = (function () {
     itemCaloriesInput: "#item-calories",
     listItems: "#item-list li",
     addBtn: ".add-btn",
+    clearBtn: ".clear-btn",
     updateBtn: ".update-btn",
     deleteBtn: ".delete-btn",
     backBtn: ".back-btn",
@@ -135,6 +139,11 @@ const UICtrl = (function () {
     clearInput () {
       document.querySelector(UISelectors.itemNameInput).value = "";
       calories: document.querySelector(UISelectors.itemCaloriesInput).value = "";
+    },
+    removeAllListItems () {
+      Array.from(document
+                  .querySelectorAll(UISelectors.listItems))
+                  .forEach(li => li.remove());
     },
     getItemInput () {
       return {
@@ -231,6 +240,11 @@ const AppCtrl = (function (ItemCtrl, UICtrl) {
     document
       .querySelector(UISelectors.deleteBtn)
       .addEventListener("click", itemDeleteSubmit);
+    
+      // delete button event
+    document
+      .querySelector(UISelectors.clearBtn)
+      .addEventListener("click", clearAllItemsClick);
   };
 
   // add item Submit
@@ -317,9 +331,37 @@ const AppCtrl = (function (ItemCtrl, UICtrl) {
     // delete from UI
     UICtrl.deleteListItem(currentItem.id);
 
+    // count calories
+    const totalCalories = ItemCtrl.getTotalCalories();
+
+    // add total calories to UI
+    UICtrl.showTotalCalories(totalCalories);
+
     log("del func")
+    UICtrl.clearEditState();
     e.preventDefault();
-  }
+  };
+
+  const clearAllItemsClick = e => {
+    // clear all items from data structure
+    ItemCtrl.clearAllItems();
+
+    // count calories
+    const totalCalories = ItemCtrl.getTotalCalories();
+
+    // clear all list items from ui 
+    UICtrl.removeAllListItems();
+
+    // add total calories to UI
+    UICtrl.showTotalCalories(totalCalories);
+
+    // hide ul line
+    UICtrl.hideList();
+
+    // clear form input - just in case
+    UICtrl.clearInput();
+
+  };
 
   // : Public Methods
   return {
