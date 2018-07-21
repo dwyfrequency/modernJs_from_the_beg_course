@@ -195,6 +195,12 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
       // Check if any items are in the list (length of 0 will be falsy, all else will be true) ? Populate list with items else hide it 
       items.length ? UICtrl.populateItemList(items) : UICtrl.hideList();
 
+      // count calories
+      const totalCalories = ItemCtrl.getTotalCalories();
+
+      // add total calories to UI
+      UICtrl.showTotalCalories(totalCalories);
+
       // : Load event listeners 
       loadEventListeners();
     }
