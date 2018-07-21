@@ -77,6 +77,9 @@ const UICtrl = (function () {
   // : Public methods
   return {
     addListItem (item) {
+      // show list
+      document.querySelector(UISelectors.itemList).style.display = "block";
+
       // create li element
       const li = document.createElement("li");
       
