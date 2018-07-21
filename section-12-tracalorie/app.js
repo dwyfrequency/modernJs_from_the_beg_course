@@ -17,9 +17,9 @@ const ItemCtrl = (function () {
   const data = {
 
     items: [
-      {id: 1, name: "Salmon Dinner", calories: 850},
-      {id: 2, name: "Cookie", calories: 400},
-      {id: 3, name: "Eggs", calories: 300}
+      // {id: 1, name: "Salmon Dinner", calories: 850}, // removing hard coded initial data
+      // {id: 2, name: "Cookie", calories: 400},
+      // {id: 3, name: "Eggs", calories: 300}
     ],
     currentItem: null,
     totalCalories: 0
@@ -93,7 +93,7 @@ const UICtrl = (function () {
       // insert item
       document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li);
     },
-    clearInput() {
+    clearInput () {
       document.querySelector(UISelectors.itemNameInput).value = "";
       calories: document.querySelector(UISelectors.itemCaloriesInput).value = "";
     },
@@ -105,6 +105,9 @@ const UICtrl = (function () {
     },
     getSelectors () {
       return UISelectors;
+    },
+    hideList () {
+      document.querySelector(UISelectors.itemList).style.display = "none";
     },
     populateItemList (items) {
       // create html from list of items
@@ -169,8 +172,8 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
       // get Items from data structure 
       const items = ItemCtrl.getItems();
 
-      // Populate list with items
-      UICtrl.populateItemList(items);
+      // Check if any items are in the list (length of 0 will be falsy, all else will be true) ? Populate list with items else hide it 
+      items.length ? UICtrl.populateItemList(items) : UICtrl.hideList();
 
       // : Load event listeners 
       loadEventListeners();
