@@ -104,6 +104,8 @@ const UICtrl = (function () {
       const { name, calories } = ItemCtrl.getCurrentItem();
       document.querySelector(UISelectors.itemNameInput).value = name;
       document.querySelector(UISelectors.itemCaloriesInput).value = calories;
+
+      this.showEditState();
     },
     clearEditState () {
       UICtrl.clearInput();
@@ -111,6 +113,12 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.updateBtn).style.display = "none";
       document.querySelector(UISelectors.backBtn).style.display = "none";
       document.querySelector(UISelectors.addBtn).style.display = "inline";
+    },
+    showEditState () {
+      document.querySelector(UISelectors.deleteBtn).style.display = "inline";
+      document.querySelector(UISelectors.updateBtn).style.display = "inline";
+      document.querySelector(UISelectors.backBtn).style.display = "inline";
+      document.querySelector(UISelectors.addBtn).style.display = "none";
     },
     clearInput () {
       document.querySelector(UISelectors.itemNameInput).value = "";
