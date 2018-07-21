@@ -175,7 +175,7 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
     // edit icon click event
     document
       .querySelector(UISelectors.itemList)
-      .addEventListener("click", itemUpdateSubmit);
+      .addEventListener("click", itemEditClick);
   };
 
   // add item Submit
@@ -206,7 +206,7 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
     };
 
   // b/c we added the items in the list after the dom loaded, we need to use event delegation
-  const itemUpdateSubmit = function (e) {
+  const itemEditClick = function (e) {
     // for an array you can use includes, but the classlist returns a dom token list which needs contains
     if (e.target.classList.contains("edit-item")) {
       // Get list item id (item-0, item-1)
