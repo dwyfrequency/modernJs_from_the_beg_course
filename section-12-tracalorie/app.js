@@ -29,8 +29,8 @@ const ItemCtrl = (function () {
   // : Public methods
   return {
 
+    // destructure item into two vars
     addItem ({name, calories}) {
-
       log(name, calories);
       let ID;
       // create id
@@ -39,25 +39,20 @@ const ItemCtrl = (function () {
       } else {
         ID = 1;
       }
-
       // create new item - must convert calories to int val
       const newItem = new Item(ID, name, parseInt(calories));
-
       // add to items array
       data.items.push(newItem);
       this.logData();
       return newItem;
     },
     getItems () {
-
       return data.items;
-
     },
     logData () {
-
       return data;
-
     }
+
   }
 
 }());
@@ -82,7 +77,6 @@ const UICtrl = (function () {
   // : Public methods
   return {
     addListItem (item) {
-      log(`${this.name} - ${item}`)
       // create li element
       const li = document.createElement("li");
       
@@ -98,11 +92,15 @@ const UICtrl = (function () {
 
       // insert item
       document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li);
-    }, 
+    },
+    clearInput() {
+      document.querySelector(UISelectors.itemNameInput).value = "";
+      calories: document.querySelector(UISelectors.itemCaloriesInput).value = "";
+    },
     getItemInput () {
       return {
         name: document.querySelector(UISelectors.itemNameInput).value,
-        calories: document.querySelector(UISelectors.itemCaloriesInput).value,
+        calories: document.querySelector(UISelectors.itemCaloriesInput).value
       };
     },
     getSelectors () {
@@ -149,7 +147,10 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
         const newItem = ItemCtrl.addItem(input);
         // add new list item to the UI
         UICtrl.addListItem(newItem);
+        // clear form input
+        UICtrl.clearInput();
       }
+
       e.preventDefault();
     };
 

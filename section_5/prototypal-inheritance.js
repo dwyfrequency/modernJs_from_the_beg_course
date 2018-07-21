@@ -25,19 +25,19 @@ function Customer(firstName, lastName, phone, membership) {
 }
 
 // Inherit the Person prototype methods
-Customer.prototype = Object.create(Person.prototype); 
+Customer.prototype = Object.create(Person.prototype);
 /* now the __proto__ points to Person, but we want it to also return Customer - so we need the line below*/
 
 // Make Customer.prototype return Customer()
-Customer.prototype.constructor = Customer; 
-console.log(Customer.prototype);
+Customer.prototype.constructor = Customer;
+log(Customer.prototype);
 
 // Create customer
 const customer1 = new Customer('tom', 'taybe', '448-200-1321', 'standard');
 log(customer1);
 
 // Override the greeting for customer
-Customer.prototype.greeting = function() {
+Customer.prototype.greeting = function () {
   return `Hello there ${this.firstName} ${this.lastName}. Welcome to our company!`;
 }
 
