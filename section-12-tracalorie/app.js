@@ -39,6 +39,9 @@ const ItemCtrl = (function () {
 
       return newItem;
     },
+    getCurrentItem() {
+      return data.currentItem;
+    },
     getItems () {
       return data.items;
     },
@@ -98,7 +101,7 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li);
     },
     addItemToForm () {
-      const {name, calories} = ItemCtrl.logData().currentItem;
+      const { name, calories } = ItemCtrl.getCurrentItem();
       document.querySelector(UISelectors.itemNameInput).value = name;
       document.querySelector(UISelectors.itemCaloriesInput).value = calories;
     },
