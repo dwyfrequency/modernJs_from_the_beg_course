@@ -75,6 +75,7 @@ const UICtrl = (function () {
     itemCaloriesInput: "#item-calories",
     addBtn: ".add-btn",
     updateBtn: ".update-btn",
+    deleteBtn: ".delete-btn",
     backBtn: ".back-btn",
     totalCalories: ".total-calories"
   }; // closure stores querySelector values
@@ -100,6 +101,15 @@ const UICtrl = (function () {
 
       // insert item
       document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li);
+    },
+    clearEditState () {
+      UICtrl.clearInput();
+      document.querySelector(UISelectors.deleteBtn).style.display = "none";
+      document.querySelector(UISelectors.updateBtn).style.display = "none";
+      document.querySelector(UISelectors.backBtn).style.display = "none";
+      document.querySelector(UISelectors.addBtn).style.display = "inline";
+
+
     },
     clearInput () {
       document.querySelector(UISelectors.itemNameInput).value = "";
@@ -148,47 +158,54 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
   // get ui selectors
   const UISelectors = UICtrl.getSelectors();
 
-    // add item Submit
-    const itemAddSubmit = e => {
-      // Get form input from UI Controller
-      const input = UICtrl.getItemInput();
-
-      /* check for name and calories input - if either are blank it will be falsy 
-      - note calories is expecting number input will be blank with string 
-      - note this number check is only enforced by the html, our js still gets string val for calories*/
-      if (input.name && input.calories) {
-        // add item to the array of items
-        const newItem = ItemCtrl.addItem(input);
-        // add new list item to the UI
-        UICtrl.addListItem(newItem);
-
-        // count calories
-        const totalCalories = ItemCtrl.getTotalCalories();
-
-        // add total calories to UI
-        UICtrl.showTotalCalories(totalCalories);
-
-        log(totalCalories);
-
-        // clear form input
-        UICtrl.clearInput();
-      }
-
-      e.preventDefault();
-    };
-
     // add item event
     document
       .querySelector(UISelectors.addBtn)
       .addEventListener("click", itemAddSubmit);
 
+    // edit icon click event
+    document
+      .querySelector(UISelectors.itemList)
+      .addEventListener("click", );
   };
+
+  // add item Submit
+  const itemAddSubmit = e => {
+    // Get form input from UI Controller
+    const input = UICtrl.getItemInput();
+
+    /* check for name and calories input - if either are blank it will be falsy 
+    - note calories is expecting number input will be blank with string 
+    - note this number check is only enforced by the html, our js still gets string val for calories*/
+    if (input.name && input.calories) {
+      // add item to the array of items
+      const newItem = ItemCtrl.addItem(input);
+      // add new list item to the UI
+      UICtrl.addListItem(newItem);
+
+      // count calories
+      const totalCalories = ItemCtrl.getTotalCalories();
+
+      // add total calories to UI
+      UICtrl.showTotalCalories(totalCalories);
+
+      log(totalCalories);
+
+      // clear form input
+      UICtrl.clearInput();
+    }
+
+      e.preventDefault();
+    };
 
   // : Public Methods
   return {
 
     init () {
       log('Initializing App...');
+      // set initial state - hides all buttons except the add meal one
+      UICtrl.clearEditState();
+
       // get Items from data structure 
       const items = ItemCtrl.getItems();
 
