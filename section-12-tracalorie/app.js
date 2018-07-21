@@ -58,6 +58,13 @@ const ItemCtrl = (function () {
     },
     setCurrentItem (item) {
       data.currentItem = item;
+    },
+    updateItem(name, calories) {
+      // retrieve item by taking current item's id and update the value
+      const item = this.getItemById(this.getCurrentItem().id);
+      item.name = name;
+      item.calories = parseInt(calories);
+      this.setCurrentItem(item);
     }
 
   };
@@ -247,11 +254,8 @@ const AppCtrl = (function (ItemCtrl, UICtrl) {
 
   // update item submit 
   const itemUpdateSubmit = e => {
-    const item = ItemCtrl.getCurrentItem();
     const { name, calories } = UICtrl.getItemInput();
-    item.name = name; 
-    item.calories = parseInt(calories);
-    log(item);
+    ItemCtrl.updateItem(name, parseInt(calories));
     e.preventDefault();
   };
 
