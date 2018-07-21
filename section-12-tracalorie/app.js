@@ -59,12 +59,12 @@ const ItemCtrl = (function () {
     setCurrentItem (item) {
       data.currentItem = item;
     },
-    updateItem(name, calories) {
+    updateItem (name, calories) {
       // retrieve item by taking current item's id and update the value
       const item = this.getItemById(this.getCurrentItem().id);
       item.name = name;
       item.calories = parseInt(calories);
-      this.setCurrentItem(item);
+      return item;
     }
 
   };
@@ -78,6 +78,7 @@ const UICtrl = (function () {
     itemList: "#item-list",
     itemNameInput: "#item-name",
     itemCaloriesInput: "#item-calories",
+    listItems: "#item-list li",
     addBtn: ".add-btn",
     updateBtn: ".update-btn",
     deleteBtn: ".delete-btn",
@@ -161,6 +162,17 @@ const UICtrl = (function () {
     },
     showTotalCalories (totalCals) {
       document.querySelector(UISelectors.totalCalories).textContent = totalCals;
+    },
+    updateListItem (item) {
+      // turn node list into array
+      const listItems = Array
+                        .from(document
+                              .querySelectorAll(UICtrl.listItems)
+                              );
+
+
+
+
     }
   };
 
@@ -254,8 +266,19 @@ const AppCtrl = (function (ItemCtrl, UICtrl) {
 
   // update item submit 
   const itemUpdateSubmit = e => {
+    // get item input
     const { name, calories } = UICtrl.getItemInput();
-    ItemCtrl.updateItem(name, parseInt(calories));
+
+    // update item
+    const updatedItem = ItemCtrl.updateItem(name, parseInt(calories));
+
+    // Update UI
+    UICtrl.updateListItem(updatedItem);
+
+
+    const totalCalories = ItemCtrl.getTotalCalories();
+    UICtrl.showTotalCalories(totalCalories);
+
     e.preventDefault();
   };
 
