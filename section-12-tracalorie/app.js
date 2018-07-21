@@ -97,6 +97,11 @@ const UICtrl = (function () {
       // insert item
       document.querySelector(UISelectors.itemList).insertAdjacentElement('beforeend', li);
     },
+    addItemToForm () {
+      const {name, calories} = ItemCtrl.logData().currentItem;
+      document.querySelector(UISelectors.itemNameInput).value = name;
+      document.querySelector(UISelectors.itemCaloriesInput).value = calories;
+    },
     clearEditState () {
       UICtrl.clearInput();
       document.querySelector(UISelectors.deleteBtn).style.display = "none";
@@ -211,8 +216,7 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
       // add current item to form
       UICtrl.addItemToForm();
     }
-    log("test");
-  }
+  };
 
   // : Public Methods
   return {
