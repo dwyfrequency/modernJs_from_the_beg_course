@@ -15,15 +15,9 @@ const ItemCtrl = (function () {
 
   // : Data Structure / State
   const data = {
-
-    items: [
-      // {id: 1, name: "Salmon Dinner", calories: 850}, // removing hard coded initial data
-      // {id: 2, name: "Cookie", calories: 400},
-      // {id: 3, name: "Eggs", calories: 300}
-    ],
+    items: [],
     currentItem: null,
     totalCalories: 0
-
   }
 
   // : Public methods
@@ -31,7 +25,6 @@ const ItemCtrl = (function () {
 
     // destructure item into two vars
     addItem ({name, calories}) {
-      log(name, calories);
       let ID;
       // create id
       if (data.items.length) {
@@ -43,7 +36,7 @@ const ItemCtrl = (function () {
       const newItem = new Item(ID, name, parseInt(calories));
       // add to items array
       data.items.push(newItem);
-      this.logData();
+
       return newItem;
     },
     getItems () {
@@ -53,18 +46,20 @@ const ItemCtrl = (function () {
       data.totalCalories = data.items.reduce((accum, obj) => accum + obj.calories, 0);
       return data.totalCalories;
     },
+    getItemById (id) {
+      // filter through items array for object, take the returned array and unpack the object
+      return data.items.filter(obj => obj.id === id)[0];
+    },
     logData () {
       return data;
+    },
+    setCurrentItem (item) {
+      data.currentItem = item;
     }
 
   }
 
 }());
-
-
-// const itemCtrl = (() => {
-//   log("item controller");
-// })();
 
 // : UI Controller
 const UICtrl = (function () {
@@ -108,8 +103,6 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.updateBtn).style.display = "none";
       document.querySelector(UISelectors.backBtn).style.display = "none";
       document.querySelector(UISelectors.addBtn).style.display = "inline";
-
-
     },
     clearInput () {
       document.querySelector(UISelectors.itemNameInput).value = "";
@@ -166,7 +159,7 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
     // edit icon click event
     document
       .querySelector(UISelectors.itemList)
-      .addEventListener("click", );
+      .addEventListener("click", itemUpdateSubmit);
   };
 
   // add item Submit
@@ -189,14 +182,37 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
       // add total calories to UI
       UICtrl.showTotalCalories(totalCalories);
 
-      log(totalCalories);
-
       // clear form input
       UICtrl.clearInput();
     }
 
       e.preventDefault();
     };
+
+  // b/c we added the items in the list after the dom loaded, we need to use event delegation
+  const itemUpdateSubmit = function (e) {
+    // for an array you can use includes, but the classlist returns a dom token list which needs contains
+    if (e.target.classList.contains("edit-item")) {
+      // Get list item id (item-0, item-1)
+      const listId = e.target.parentElement.parentElement.id;
+      
+      // break into an array
+      const listIdArr = listId.split('-');
+
+      // get the actual id
+      const id = parseInt(listIdArr[1]);
+
+      // get item
+      const itemToEdit = ItemCtrl.getItemById(id);
+      
+      // Set current item
+      ItemCtrl.setCurrentItem(itemToEdit);
+
+      // add current item to form
+      UICtrl.addItemToForm();
+    }
+    log("test");
+  }
 
   // : Public Methods
   return {
