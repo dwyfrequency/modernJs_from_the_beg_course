@@ -39,7 +39,7 @@ const ItemCtrl = (function () {
 
       return newItem;
     },
-    getCurrentItem() {
+    getCurrentItem () {
       return data.currentItem;
     },
     getItems () {
@@ -60,7 +60,7 @@ const ItemCtrl = (function () {
       data.currentItem = item;
     }
 
-  }
+  };
 
 }());
 
@@ -160,22 +160,38 @@ const UICtrl = (function () {
 }());
 
 // : APP Controller
-const AppCtrl = ((ItemCtrl, UICtrl) => {
+const AppCtrl = (function (ItemCtrl, UICtrl) {
 
   // load event listeners - all initial events will go in here
   const loadEventListeners = () => {
-  // get ui selectors
-  const UISelectors = UICtrl.getSelectors();
+    // get ui selectors
+    const UISelectors = UICtrl.getSelectors();
 
     // add item event
     document
       .querySelector(UISelectors.addBtn)
       .addEventListener("click", itemAddSubmit);
 
+    // disable submit on enter - this works when you are not in the form like if you just click out of focus and hit enter, it'll be prevented
+    document
+      .querySelector(UISelectors.addBtn)
+      .addEventListener("keypress", e => {
+        log(e);
+        if (e.keyCode === 13) {
+          e.preventDefault();
+          return false;
+        }
+      });
+    
     // edit icon click event
     document
       .querySelector(UISelectors.itemList)
       .addEventListener("click", itemEditClick);
+    
+    // update item event
+    document
+      .querySelector(UISelectors.updateBtn)
+      .addEventListener("click", itemUpdateSubmit);
   };
 
   // add item Submit
@@ -229,6 +245,16 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
     }
   };
 
+  // update item submit 
+  const itemUpdateSubmit = e => {
+    const item = ItemCtrl.getCurrentItem();
+    const { name, calories } = UICtrl.getItemInput();
+    item.name = name; 
+    item.calories = parseInt(calories);
+    log(item);
+    e.preventDefault();
+  };
+
   // : Public Methods
   return {
 
@@ -253,7 +279,7 @@ const AppCtrl = ((ItemCtrl, UICtrl) => {
       loadEventListeners();
     }
 
-  }
+  };
 
 })(ItemCtrl, UICtrl);
 
