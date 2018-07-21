@@ -64,6 +64,7 @@ const ItemCtrl = (function () {
       const item = this.getItemById(this.getCurrentItem().id);
       item.name = name;
       item.calories = parseInt(calories);
+
       return item;
     }
 
@@ -164,14 +165,18 @@ const UICtrl = (function () {
       document.querySelector(UISelectors.totalCalories).textContent = totalCals;
     },
     updateListItem (item) {
-      // turn node list into array
-      const listItems = Array
-                        .from(document
-                              .querySelectorAll(UICtrl.listItems)
-                              );
-
-      // listItems.
-
+      // get all list items - returned turn node - turn node list into array
+      const listItems = Array.from(document.querySelectorAll(UISelectors.listItems));
+      // listItems
+      listItems.forEach(li => {
+        const itemId = li.getAttribute("id");
+        if (itemId === `item-${item.id}`) {
+          li.innerHTML = `
+            <strong>${item.name}: </strong> <em>${item.calories} Calories</em>
+            <a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i></a>
+          `;
+        }
+      })
 
 
     }
