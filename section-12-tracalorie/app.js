@@ -39,6 +39,9 @@ const ItemCtrl = (function () {
 
       return newItem;
     },
+    deleteItem (id) {
+      data.items = data.items.filter(obj => obj.id !== id);
+    },
     getCurrentItem () {
       return data.currentItem;
     },
@@ -176,9 +179,10 @@ const UICtrl = (function () {
             <a href="#" class="secondary-content"><i class="edit-item fa fa-pencil"></i></a>
           `;
         }
-      })
-
-
+      });
+    },
+    deleteListItem (itemId) {
+      document.querySelector(`#item-${itemId}`).remove();
     }
   };
 
@@ -222,6 +226,11 @@ const AppCtrl = (function (ItemCtrl, UICtrl) {
     document
       .querySelector(UISelectors.backBtn)
       .addEventListener("click", UICtrl.clearEditState);
+    
+    // delete button event
+    document
+      .querySelector(UISelectors.deleteBtn)
+      .addEventListener("click", itemDeleteSubmit);
   };
 
   // add item Submit
@@ -297,6 +306,20 @@ const AppCtrl = (function (ItemCtrl, UICtrl) {
 
     e.preventDefault();
   };
+
+  const itemDeleteSubmit = e => {
+    // get current item
+    const currentItem = ItemCtrl.getCurrentItem();
+
+    // delete from data structure
+    ItemCtrl.deleteItem(currentItem.id);
+
+    // delete from UI
+    UICtrl.deleteListItem(currentItem.id);
+
+    log("del func")
+    e.preventDefault();
+  }
 
   // : Public Methods
   return {
