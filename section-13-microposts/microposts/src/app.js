@@ -29,6 +29,10 @@ function submitPost () {
 
   // create post
   http.post("http://localhost:3000/posts", data)
-      .then(data => getPosts()) // call get posts function to see all posts
+      .then(data => {
+        ui.showAlert("Post added", "alert alert-success");
+        ui.clearFields();
+        getPosts();
+      }) // call get posts function to see all posts
       .catch(err => log(err));
 }

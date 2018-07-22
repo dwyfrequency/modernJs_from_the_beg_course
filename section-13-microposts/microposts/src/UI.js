@@ -6,6 +6,7 @@ class UI {
     this.idInput = document.querySelector("#id");
     this.postSubmit = document.querySelector(".post-submit");
     this.forState = "add";
+    this.postsContainer = document.querySelector(".postsContainer");
   }
 
   showPosts (posts) {
@@ -26,6 +27,26 @@ class UI {
       `;
     }, "");
     this.posts.innerHTML = output;
+  }
+
+  showAlert (message, className) {
+    this.clearAlert();
+
+    // create div 
+    const div = document.createElement("div");
+    // add classes 
+    div.className = className;
+    // add text
+    div.appendChild(document.createTextNode(message));
+    // take parent postContainer, insert created div before the posts section
+    this.postsContainer.insertBefore(div, this.posts);
+  }
+
+  clearAlert () {}
+
+  clearFields () {
+    this.titleInput.value = "";
+    this.bodyInput.value = "";
   }
 }
 

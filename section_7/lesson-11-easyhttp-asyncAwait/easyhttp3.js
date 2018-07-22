@@ -23,11 +23,8 @@ class EasyHTTP {
       headers: { 'Content-type': 'application/json' },
       body: JSON.stringify(data)
     }; // body is destructured to a key of body and value of the object passed in 
-    console.log(headers);
     const response = await fetch(url, headers);
-    console.log(response);
     const respData = await response.json();
-    console.log(respData);
     return respData;
   }
 
