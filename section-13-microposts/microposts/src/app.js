@@ -1,16 +1,15 @@
 // start fake api command: npm run json:server
-import { http } from './http.js'
+import { http } from './http'
+import { ui } from './UI'
 
 // get posts on DOM Load
 document.addEventListener("DOMContentLoaded", getPosts);
 
 const log = console.log;
 
-function getPosts(url) {
+function getPosts() {
   http
-    .get(url)
-    .then(response => log(response))
+    .get('http://localhost:3000/posts')
+    .then(response => ui.showPosts(response))
     .catch(err => log(err));
 }
-
-getPosts('http://localhost:3000/posts'); //
