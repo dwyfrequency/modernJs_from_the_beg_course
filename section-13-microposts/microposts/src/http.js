@@ -17,23 +17,25 @@ class EasyHTTP {
     return resData;
   }
 
-  async post(url, body) {
+  async post(url, data) {
     const headers = {
       method: 'POST',
       headers: { 'Content-type': 'application/json' },
-      body
+      body: JSON.stringify(data)
     }; // body is destructured to a key of body and value of the object passed in 
+    console.log(headers);
     const response = await fetch(url, headers);
+    console.log(response);
     const respData = await response.json();
-
+    console.log(respData);
     return respData;
   }
 
-  async put(url, body) {
+  async put(url, data) {
     const headers = {
       method: 'PUT',
       headers: { 'Content-type': 'application/json' },
-      body
+      body: JSON.stringify(data)
     }; // body is destructured to a key of body and value of the object passed in 
     const response = await fetch(url, headers);
     const respData = await response.json();
