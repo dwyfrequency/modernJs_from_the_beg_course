@@ -1,7 +1,28 @@
 const log = console.log;
 
 // : Storage Controller
+const StorageCtrl = (function() {
+  // private methods and properties
 
+
+
+  // public methods
+  return {
+
+    getItems() {
+      const lsItems = localStorage.getItem("items"); 
+      // if it is not null, parse the array else empty array returned
+      return lsItems ? JSON.parse(lsItems) : [];
+    },
+    storeItem (item) {
+      const items = this.getItems();
+      // add new item to array
+      items.push(item);
+      // add the updated array to local storage
+      localStorage.setItem("items", JSON.stringify(items));
+    }
+  };
+})();
 
 // : Item Controller
 const ItemCtrl = (function () {
@@ -198,7 +219,7 @@ const UICtrl = (function () {
 }());
 
 // : APP Controller
-const AppCtrl = (function (ItemCtrl, UICtrl) {
+const AppCtrl = (function (ItemCtrl, StorageCtrl, UICtrl) {
 
   // load event listeners - all initial events will go in here
   const loadEventListeners = () => {
@@ -266,6 +287,9 @@ const AppCtrl = (function (ItemCtrl, UICtrl) {
 
       // add total calories to UI
       UICtrl.showTotalCalories(totalCalories);
+
+      // store data in Local Storage
+      StorageCtrl.storeItem(newItem);
 
       // clear form input
       UICtrl.clearInput();
@@ -389,7 +413,7 @@ const AppCtrl = (function (ItemCtrl, UICtrl) {
 
   };
 
-})(ItemCtrl, UICtrl);
+})(ItemCtrl, StorageCtrl, UICtrl);
 
 AppCtrl.init();
 
