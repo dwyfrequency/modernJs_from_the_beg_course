@@ -9,6 +9,7 @@ class UI {
     this.postsContainer = document.querySelector(".postsContainer");
   }
 
+  // add all posts to the ui
   showPosts (posts) {
     const output = posts.reduce((accum, post) => {
       return accum + `
@@ -29,6 +30,7 @@ class UI {
     this.posts.innerHTML = output;
   }
 
+  // display alert message
   showAlert (message, className) {
     this.clearAlert();
 
@@ -40,13 +42,32 @@ class UI {
     div.appendChild(document.createTextNode(message));
     // take parent postContainer, insert created div before the posts section
     this.postsContainer.insertBefore(div, this.posts);
+
+    // timeout
+    setTimeout(() => {
+      this.clearAlert();
+    }, 3000);
   }
 
-  clearAlert () {}
+  // clear alert message
+  clearAlert () {
+    const currentAlert = document.querySelector(".alert");
+    if(currentAlert) { 
+      currentAlert.remove(); 
+    };
+  }
 
+  // clear form fields
   clearFields () {
     this.titleInput.value = "";
     this.bodyInput.value = "";
+  }
+
+  // fill form to edit
+  fillForm (data) {
+    this.titleInput.value = data.title;
+    this.bodyInput.value = data.body;
+    this.idInput.value = data.id;
   }
 }
 
