@@ -16,7 +16,7 @@ document.querySelector(".post-submit").addEventListener("click", submitPost);
 document.querySelector("#posts").addEventListener("click", editPost);
 
 // cancel edit state - b/c cancel btn is dynamically added, we must use event delagation on parent element
-document.querySelector(".card-form").addEventListener("click", cancelPost);
+document.querySelector(".card-form").addEventListener("click", cancelEdit);
 
 // document.querySelector("#posts").addEventListener("click", deletePost);
 
@@ -70,6 +70,14 @@ function editPost(e) {
     // fill form inputs
     ui.fillForm(data);
 
+  }
+  e.preventDefault();
+}
+
+// cancel edit state
+function cancelEdit(e) {
+  if (e.target.classList.contains("post-cancel")) {
+    ui.changeFormState("add");
   }
   e.preventDefault();
 }
