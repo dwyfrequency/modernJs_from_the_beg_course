@@ -68,6 +68,47 @@ class UI {
     this.titleInput.value = data.title;
     this.bodyInput.value = data.body;
     this.idInput.value = data.id;
+
+    this.changeFormState("edit");
+  }
+
+  // clear id hidden value
+  clearIdInput () {
+    this.idInput.value = "";
+  }
+
+  changeFormState (stateType) {
+    if (stateType === "edit") {
+      this.postSubmit.textContent = "Update Post"; // changes submit button text
+      this.postSubmit.className = "post-submit btn btn-warning btn-block"; // changes submit button color to orange - eventhough we only want to add one class, with className we have to input the whole string of all the classes
+
+      // create cancel button
+      const cancelBtn = document.createElement("button");
+      cancelBtn.className = "post-cancel btn btn-light btn-block";
+      cancelBtn.appendChild(document.createTextNode("Cancel Edit"));
+
+      // get parent
+      const cardForm = document.querySelector(".card-form");
+      // get sibling
+      const cardEnd = document.querySelector(".form-end");
+
+      // insert cancel button at the end of the form
+      cardForm.insertBefore(cancelBtn, cardEnd);
+    } else {
+      this.postSubmit.textContent = "Post it"; // changes submit button text
+      this.postSubmit.className = "post-submit btn btn-primary btn-block";
+
+      // remove cancel btn if there
+      const cancelBtn = document.querySelector(".post-cancel");
+      if(cancelBtn) {
+        cancelBtn.remove();
+      }
+      // clear id from hidden field
+      this.clearIdInput();
+      // clear text
+      this.clearFields();
+    }
+    this.forState = stateType;
   }
 }
 
