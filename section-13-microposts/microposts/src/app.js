@@ -1,5 +1,10 @@
-// start webpack and babel command: npm start
+/* 
+start webpack and babel command: npm start
 // start fake api command: npm run json:server
+// when you want to ship the code command: npm run build
+// when loading to a server send the build folder for the js code, the index html, and the assets folder for css/any images. 
+That's it, webpack will bundle all the js files and babel will translate
+*/
 import { http } from './http'
 import { ui } from './UI'
 
@@ -32,24 +37,41 @@ function getPosts() {
 function submitPost () {
   const title = document.querySelector("#title").value;
   const body = document.querySelector("#body").value;
+  const id = document.querySelector("#id").value;
 
-  // any blank fields, display warning and dont submit
+  // destructure values in new object ie same as title: title
+  const data = {
+    title,
+    body
+  };
+
+  // validate input - any blank fields, display warning and dont submit
   if(title === "" || body === "") {
     ui.showAlert("Please fill in all fields", "alert alert-danger");
   } else {
-    // destructure values in new object ie same as title: title
-    const data = {
-      title,
-      body
-    };
-    // create post
-    http.post("http://localhost:3000/posts", data)
-      .then(data => {
-        ui.showAlert("Post added", "alert alert-success");
-        ui.clearFields();
-        getPosts();
-      }) // call get posts function to see all posts
-      .catch(err => log(err));
+    /* to check whether we are adding or updating > 
+    if there is an id value in the hidden field then it is an update else add */
+    if (id) {
+      // Update post - b/c there is an id 
+      http.put(`http://localhost:3000/posts/${id}`, data)
+        .then(data => {
+          ui.showAlert("Post updated", "alert alert-success");
+          ui.changeFormState("add");
+          getPosts();
+        }) // call get posts function to see all posts
+        .catch(err => log(err));
+    } else {
+      // Add post - create post b/c there is nothin in id
+      http.post("http://localhost:3000/posts", data)
+        .then(data => {
+          ui.showAlert("Post added", "alert alert-success");
+          ui.clearFields();
+          getPosts();
+        }) // call get posts function to see all posts
+        .catch(err => log(err));
+    }
+
+
   }
 
 
