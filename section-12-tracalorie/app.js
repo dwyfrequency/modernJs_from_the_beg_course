@@ -2,9 +2,7 @@ const log = console.log;
 
 // : Storage Controller
 const StorageCtrl = (function() {
-  // private methods and properties
-
-
+  // private methods and properties - none
 
   // public methods
   return {

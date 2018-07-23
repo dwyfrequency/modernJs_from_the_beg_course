@@ -66,7 +66,7 @@ easyHTTP.prototype.delete = function (url, callback) {
   let self = this;
   this.http.onload = function () {
     if (self.http.status === 200) {
-      // by adding the callback, we are doign this async
+      // by adding the callback, we are doing this async
       // response will be an empty object if successful
       callback(null, self.http.responseText);
     } else {
