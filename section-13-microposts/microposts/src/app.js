@@ -1,3 +1,4 @@
+// start webpack and babel command: npm start
 // start fake api command: npm run json:server
 import { http } from './http'
 import { ui } from './UI'
